@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14/02/26</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet"> <!-- Menggunakan Fredoka One sebagai font Groovy yang fun -->
+    <style>
+        body {
+            font-family: 'Fredoka One', cursive;
+            background: linear-gradient(to bottom, #ffe6f2, #e6f7ff); /* Background simple dengan gradien pastel untuk tema bloom */
+            color: #992d58;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #ff69b4; /* Pink untuk tema Valentine */
+        }
+        button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: background 0.3s; /* Smooth hover */
+        }
+        button:hover {
+            background: #ff1493;
+        }
+        .hidden {
+            display: none;
+        }
+        .quiz {
+            margin: 20px 0;
+            text-align: center; /* Center semua elemen di quiz */
+        }
+        .quiz input {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 80%; /* Lebih lebar di mobile */
+            max-width: 300px;
+        }
+        .quiz button {
+            margin-top: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        a {
+            color: #ff69b4;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        /* Responsive untuk Android dan laptop - diperbaiki lebih lanjut untuk mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px; /* Tambah padding agar tidak menempel tepi */
+            }
+            .container {
+                padding: 15px; /* Kurangi padding untuk layar kecil */
+                margin: 10px;
+                max-width: 95%; /* Lebih fleksibel */
+            }
+            h1 {
+                font-size: 24px; /* Ukuran font lebih kecil di mobile */
+            }
+            h2 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 14px; /* Lebih readable */
+            }
+            button {
+                width: 100%; /* Full width untuk mudah klik */
+                padding: 15px 20px; /* Padding lebih besar untuk tombol */
+                font-size: 18px; /* Font lebih besar di mobile */
+                margin: 15px 0; /* Margin vertikal lebih besar */
+                border-radius: 10px; /* Border radius lebih besar untuk look modern */
+                display: block; /* Pastikan block untuk full width */
+            }
+            .quiz input {
+                width: 90%; /* Lebih lebar */
+                font-size: 16px; /* Font input lebih besar */
+            }
+            .quiz button {
+                width: 80%; /* Button quiz lebih kecil dan ketengah */
+                padding: 15px;
+                font-size: 18px;
+                margin: 15px auto 0; /* Center horizontal dengan auto */
+                display: block; /* Block untuk center */
+            }
+          }
+        /* Styling untuk audio player agar tidak mengganggu */
+        audio {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            width: 200px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Audio backsound -->
+    <audio id="backsound" autoplay loop controls>
+        <source src="The 1975 - About You (Official).mp3" type="audio/mpeg"> <!-- GANTI URL INI DENGAN URL LAGU ASLI -->
+        Browser kamu tidak mendukung audio.
+    </audio>
+
+    <div class="container">
+        <div id="intro">
+            <h1>Happy Valentine!</h1>
+            <p>Hai, Fikri. Aku ada sesuatu yang pengen aku tunjukkin. Klik tombol di bawah untuk mulai.</p>
+            <button onclick="showPost(1)">Mulai</button>
+        </div>
+
+        <div id="post1" class="hidden">
+            <img src="image/flower.jpeg" alt=""width="90px" height="90px">
+            <p>Tanggal 14 Februari itu..hari apa yak, oh! hari..sabtu ^v^! haha,benerkan ya?</p>
+            <button onclick="showPost(2)">Lanjut</button>
+        </div>
+
+        <div id="post2" class="hidden">
+            <img src="image/flower.jpeg" alt=""width="90px" height="90px">
+            <p>Kamu apa kabarnya? semoga baik ya,dan selalu begitu</p>
+            <button onclick="showPost(3)">Lanjut</button>
+        </div>
+
+        <div id="post3" class="hidden">
+            <img src="image/flower.jpeg" alt=""width="90px" height="90px">
+            <p>oh iya aku ada sesuatu buat kamu di akhir nanti,semoga suka yaaaa</p>
+            <button onclick="showPost(4)">Lanjut</button>
+        </div>
+
+        <div id="quiz1" class="hidden">
+            <h2>Tantangan 1</h2>
+            <p>Sebelum hadiah, jawab teka-teki ini. Apa yang bisa kamu pegang di tangan kanan, tapi tidak di tangan kiri?</p>
+            <div class="quiz">
+                <input type="text" id="answer1" placeholder="Jawabanmu">
+                <button onclick="checkAnswer1()">Jawab</button>
+            </div>
+            <p id="feedback1" class="hidden">Salah! Coba lagi. (Pikirkan dengan logika)</p>
+        </div>
+
+        <div id="quiz2" class="hidden">
+            <h2>Tantangan 2</h2>
+            <p>Bagus! Sekarang, berapa banyak angka 9 ada di antara 1 sampai 100?</p>
+            <div class="quiz">
+                <input type="text" id="answer2" placeholder="Jawabanmu (angka)">
+                <button onclick="checkAnswer2()">Jawab</button>
+            </div>
+            <p id="feedback2" class="hidden">Salah! Coba lagi. (Hitung dengan teliti)</p>
+        </div>
+
+        <div id="quiz3" class="hidden">
+            <h2>Tantangan 3</h2>
+            <p>Hampir! Apa yang semakin basah semakin kering?</p>
+            <div class="quiz">
+                <input type="text" id="answer3" placeholder="Jawabanmu">
+                <button onclick="checkAnswer3()">Jawab</button>
+            </div>
+            <p id="feedback3" class="hidden">Salah! Coba lagi. (Ini yang terakhir, pikir baik-baik)</p>
+        </div>
+
+        <div id="final" class="hidden">
+            <h2>Hadiah!</h2>
+            <p>Selamat! Kamu berhasil melewati semua tantangan. Ini hadiah untukmu.</p>
+            <img src="image/gift.jpeg" alt="Jengg!!!" width="200px" height="200px"> 
+            <p><a href="image/Nero.png" download="hadiah-valentine.jpg">Simpan Foto</a></p> 
+        </div>
+    </div>
+
+    <script>
+        function showPost(num) {
+            // Sembunyikan semua
+            document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+            // Tampilkan yang diminta
+            if (num === 4) {
+                document.getElementById('quiz1').classList.remove('hidden');
+            } else {
+                document.getElementById('post' + num).classList.remove('hidden');
+            }
+        }
+
+        function checkAnswer1() {
+            const answer = document.getElementById('answer1').value.toLowerCase().replace(/\s/g, '');
+            if (answer === 'tangankiri' || answer === 'tangan kiri') {
+                document.getElementById('quiz1').classList.add('hidden');
+                document.getElementById('quiz2').classList.remove('hidden');
+            } else {
+                document.getElementById('feedback1').classList.remove('hidden');
+            }
+        }
+
+        function checkAnswer2() {
+            const answer = document.getElementById('answer2').value;
+            if (answer === '20') {
+                document.getElementById('quiz2').classList.add('hidden');
+                document.getElementById('quiz3').classList.remove('hidden');
+            } else {
+                document.getElementById('feedback2').classList.remove('hidden');
+            }
+        }
+
+        function checkAnswer3() {
+            const answer = document.getElementById('answer3').value.toLowerCase().replace(/\s/g, '');
+            if (answer === 'handuk') {
+                document.getElementById('quiz3').classList.add('hidden');
+                document.getElementById('final').classList.remove('hidden');
+            } else {
+                document.getElementById('feedback3').classList.remove('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
